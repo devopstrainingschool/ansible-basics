@@ -1,0 +1,35 @@
+---
+- name: Patricia
+  hosts: test
+  become: yes
+  tasks:
+    - name: install uninstall httpd
+      yum:
+       name: httpd
+       state: absent
+    - name: Install httpd again
+      yum:
+       name: httpd
+       state: present
+    - name: start & enable httpd
+      service:
+       name: httpd
+       state: started
+       enabled: yes
+    - name: install loop
+      yum:
+       name: "{{item}}"
+       state: present
+      loop:
+      - vim
+      - mariadb
+      - postgresql
+    - name: Enable firewall port 80 & 443
+      firewalld:
+       permanent: true
+       port: '{{item}}'
+       state: enabled
+       immediate: true
+      loop:
+      - 80/tcp
+      - 443/tcp
