@@ -1,0 +1,3 @@
+[test]
+Yannick_server ansible_host=23.92.28.85 ansible_user=root
+Anael_server ansible_host=139.144.29.139 ansible_user=root
